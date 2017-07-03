@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Drinks Events</title>
+    <link rel='stylesheet' href='lib/stylesheet.css'>
+</head>
+<body>
+    <h1>Drinks Events App API Data</h1>
+    <div id="output">
+    </div>
+    <script>
+        var output = document.getElementById("output");
+        function myFunction(){
+            var jsonoutput = '';
+            if(this.readyState == 4 && this.status == 200) {
+            var json = JSON.parse(this.responseText);
+            console.log(json);
+                for (var a in json){
+                    jsonoutput = jsonoutput + '<b>ID: </b>' + json[a].id + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Time: </b>' + json[a].time + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Title: </b>' + json[a].title + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Creator: </b>' + json[a].creator.name + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Guests: </b>' + json[a].guests.name + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Type: </b> ' + json[a].type + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Location: </b> ' + json[a].location.name + '<BR>';
+                    jsonoutput = jsonoutput + '<b>Comment: </b>' + json[a].comment + '<BR><BR>';   
+                }
+
+            output.innerHTML = jsonoutput
+            }
+            
+        }
+        
+        var myRequest = new XMLHttpRequest();
+        myRequest.overrideMimeType("application/json")
+        myRequest.onload = myFunction; 
+        myRequest.open('GET',"https://mock-api.drinks.test.siliconrhino.io/events/", true);
+        myRequest.send(null);
+
+
+        
+    </script>
+</body>
+</html>
